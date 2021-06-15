@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <link rel="stylesheet" href="build/app.css">
+    <title>Autohuys Rhenen Dashboard</title>
+    <link rel="icon" type="image/png" href="/images/favicon.png"/>
+  </head>
+  <body>
+
+    <div class="main">
+        <div class="sidenav">
+            <img class="logo" src="images/logo.png"/>
+            <div class="menu">
+                <a href="Dashboard.html">Overzicht</a>
+                <a href="Voorraad.html">Voorraad</a>
+                <a href="Showroom.html">Showroom map</a>
+                <a href="Detail.html">Detailing lijst</a>
+                <a href="Werknemers.html">Werknemers</a>
+            </div>
+
+            <div class="profile">
+                <div class="photo">
+                    <img class="profilepicture" src="images/ProfielfotoHarry.png">
+                </div>
+                <div class="info">
+                    <h5>Harry Vos</h5>
+                    <p>Administrator</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="content">
+            <div class="voorraad">
+               {{ form(form) }}
+            </div>
+        </div>
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
+  </body>
+</html>
