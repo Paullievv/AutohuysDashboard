@@ -62,6 +62,61 @@ class Invoice
      */
     private $license;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $meldcode;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $Garantie;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $Afleveringsbeurt;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $Inruil;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $Inruilprijs;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $subtotaal;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $totaal;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $opmerking;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $Inruillicense;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $verkochteauto;
+
+    /**
+     * @ORM\Column(type="date")
+     */
+    private $invoicedate;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -171,6 +226,138 @@ class Invoice
     public function setLicense(string $license): self
     {
         $this->license = $license;
+
+        return $this;
+    }
+
+    public function getMeldcode(): ?int
+    {
+        return $this->meldcode;
+    }
+
+    public function setMeldcode(int $meldcode): self
+    {
+        $this->meldcode = $meldcode;
+
+        return $this;
+    }
+
+    public function getGarantie(): ?string
+    {
+        return $this->Garantie;
+    }
+
+    public function setGarantie(?string $Garantie): self
+    {
+        $this->Garantie = $Garantie;
+
+        return $this;
+    }
+
+    public function getAfleveringsbeurt(): ?string
+    {
+        return $this->Afleveringsbeurt;
+    }
+
+    public function setAfleveringsbeurt(?string $Afleveringsbeurt): self
+    {
+        $this->Afleveringsbeurt = $Afleveringsbeurt;
+
+        return $this;
+    }
+
+    public function getInruil(): ?string
+    {
+        return $this->Inruil;
+    }
+
+    public function setInruil(?string $Inruil): self
+    {
+        $this->Inruil = $Inruil;
+
+        return $this;
+    }
+
+    public function getInruilprijs(): ?string
+    {
+        return $this->Inruilprijs;
+    }
+
+    public function setInruilprijs(?string $Inruilprijs): self
+    {
+        $this->Inruilprijs = $Inruilprijs;
+
+        return $this;
+    }
+
+    public function getSubtotaal(): ?string
+    {
+        return $this->subtotaal;
+    }
+
+    public function setSubtotaal(string $subtotaal): self
+    {
+        $this->subtotaal = $subtotaal;
+
+        return $this;
+    }
+
+    public function getTotaal(): ?string
+    {
+        return $this->totaal;
+    }
+
+    public function setTotaal(string $totaal): self
+    {
+        $this->totaal = $totaal;
+
+        return $this;
+    }
+
+    public function getOpmerking(): ?string
+    {
+        return $this->opmerking;
+    }
+
+    public function setOpmerking(?string $opmerking): self
+    {
+        $this->opmerking = $opmerking;
+
+        return $this;
+    }
+
+    public function getInruillicense(): ?string
+    {
+        return $this->Inruillicense;
+    }
+
+    public function setInruillicense(?string $Inruillicense): self
+    {
+        $this->Inruillicense = $Inruillicense;
+
+        return $this;
+    }
+
+    public function getVerkochteauto(): ?string
+    {
+        return $this->verkochteauto;
+    }
+
+    public function setVerkochteauto(string $verkochteauto): self
+    {
+        $this->verkochteauto = $verkochteauto;
+
+        return $this;
+    }
+
+    public function getInvoicedate(): ?\DateTimeInterface
+    {
+        return $this->invoicedate;
+    }
+
+    public function setInvoicedate(\DateTimeInterface $invoicedate): self
+    {
+        $this->invoicedate = $invoicedate;
 
         return $this;
     }

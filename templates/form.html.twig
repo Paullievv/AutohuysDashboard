@@ -14,11 +14,8 @@
         <div class="sidenav">
             <img class="logo" src="images/logo.png"/>
             <div class="menu">
-                <a href="Dashboard.html">Overzicht</a>
-                <a href="Voorraad.html">Voorraad</a>
-                <a href="Showroom.html">Showroom map</a>
-                <a href="Detail.html">Detailing lijst</a>
-                <a href="Werknemers.html">Werknemers</a>
+                <a href="/">Overzicht</a>
+                <a href="/maak-factuur">Factuur maken</a>
             </div>
 
             <div class="profile">
@@ -34,7 +31,31 @@
 
         <div class="content">
             <div class="voorraad">
-               {{ form(form) }}
+               {{ form_start(form) }}
+
+                <div class="my-custom-class-for-errors">
+                    {{ form_errors(form) }}
+                </div>
+
+                <div class="row">
+                    <div class="col">
+                        {{ form_row(form.invoicenumber) }}
+                    </div>
+                    <div class="col" id="some-custom-id">
+                        {{ form_row(form.street) }}
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col">
+                        {{ form_row(form.name) }}
+                    </div>
+                    <div class="col" id="some-custom-id">
+                        {{ form_row(form.street) }}
+                    </div>
+                </div>
+
+                {{ form_end(form) }}
             </div>
         </div>
     </div>
