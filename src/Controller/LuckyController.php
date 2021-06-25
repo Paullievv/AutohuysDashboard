@@ -25,7 +25,7 @@ class LuckyController extends AbstractController
 {
     
     /**
-        * @Route("/")
+        * @Route("home", name="home_page")
     */
     public function dashboard(Request $request) : Response
     {
@@ -64,7 +64,7 @@ class LuckyController extends AbstractController
 
         $form = $this->createFormBuilder($invoice)
             ->add('invoicenumber', NumberType::class, ['label' => 'Factuur nummer'])
-            ->add('invoicedate', DateType::class, ['label' => 'Factuur datum', 'data' => DateTime::createFromFormat('U', time())])
+            ->add('invoicedate', DateType::class, ['label' => 'Factuur datum'])
             ->add('name', TextType::class, ['label' => 'Naam'])
             ->add('street', TextType::class, ['label' => 'Straat'])
             ->add('streetnumber', NumberType::class, ['label' => 'Huisnummer'])
