@@ -15,7 +15,7 @@
         <div class="sidenav">
             <img class="logo" src="images/logo.png"/>
             <div class="menu">
-                <a href="/">Overzicht</a>
+                <a href="/home">Overzicht</a>
                 <a href="/maak-factuur">Factuur maken</a>
             </div>
 
@@ -32,7 +32,7 @@
 
         <div class="content">
             <div class="voorraad">
-               {{ form_start(form) }}
+                {{ form_start(form) }}
 
                 <div class="my-custom-class-for-errors">
                     {{ form_errors(form) }}
@@ -52,7 +52,49 @@
                         {{ form_row(form.name) }}
                     </div>
                     <div class="col" id="some-custom-id">
-                        {{ form_row(form.street) }}
+                        {{ form_row(form.streetnumber) }}
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col">
+                        {{ form_row(form.city) }}
+                    </div>
+                    <div class="col" id="some-custom-id">
+                        {{ form_row(form.postcode) }}
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col">
+                        {{ form_row(form.telefoonnummer) }}
+                    </div>
+                    <div class="col" id="some-custom-id">
+                        {{ form_row(form.email) }}
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col">
+                        {{ form_row(form.Inruil) }}
+                    </div>
+                    <div class="col" id="some-custom-id">
+                        {{ form_row(form.Inruilprijs) }}
+                    </div>
+                                        <div class="col" id="some-custom-id">
+                        {{ form_row(form.subtotaal) }}
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col">
+                        {{ form_row(form.license) }}
+                    </div>
+                    <div class="col" id="some-custom-id">
+                        {{ form_row(form.meldcode) }}
+                    </div>
+                                        <div class="col" id="some-custom-id">
+                        {{ form_row(form.Garantie) }}
                     </div>
                 </div>
 

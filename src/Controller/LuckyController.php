@@ -29,31 +29,16 @@ class LuckyController extends AbstractController
     */
     public function dashboard(Request $request) : Response
     {
-        //$reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReaderForFile("omzet.xlsx");
-        //$reader->setReadDataOnly(true);
-        //$reader->load("omzet.xlsx");
+        $omzetexcel = \PhpOffice\PhpSpreadsheet\IOFactory::createReaderForFile("Inkoopprijzen.xlsx")->load("Inkoopprijzen.xlsx");
 
-        // $highestRow = $objWorksheet->getHighestRow();
-        // $highestColumn = $objWorksheet->getHighestColumn();
-        // $highestColumnIndex = PHPExcel_Cell::columnIndexFromString($highestColumn);
+        $voorraad = $omzetexcel->getActiveSheet()->getHighestRow() - 11;
 
-
-        // for($row=1; $row < $highestRow; ++$row){
-        //     $value = $objPHPExcel->getActiveSheet()->getCell('A'.$row)->getValue();
-
-        //     if (strpos($value, $kenteken) !== false) {
-        //         $objPHPExcel->getActiveSheet()->removeRow($row, $row);
-        //     }
-        // }
-
-        // $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, "Excel2007");
-        // $objWriter->save($path);
+        $this->RemoveStock();
 
         return $this->render('dashboard.html.twig', [
-            //'form' => $form->createView(),
+            'voorraad' => $voorraad,
         ]);
     }
-
 
     /**
         * @Route("/maak-factuur")
@@ -76,9 +61,13 @@ class LuckyController extends AbstractController
             ->add('meldcode', NumberType::class, ['label' => 'Meldcode'])
             ->add('Garantie', TextType::class, ['label' => 'Garantie'])
             ->add('Afleveringsbeurt', TextType::class, ['label' => 'Afleveringsbeurt'])
-            ->add('Inruil', TextType::class, ['label' => 'Kenteken'])
-            ->add('Inruilprijs', MoneyType::class, ['label' => 'Kenteken'])
-            ->add('subtotaal', MoneyType::class, ['label' => 'Kenteken'])
+            ->add('Inruil', TextType::class, ['label' => 'Inruil'])
+            ->add('Inruilprijs', MoneyType::class, ['label' => 'Inruilprijs'])
+            ->add('subtotaal', MoneyType::class, ['label' => 'Sub-totaal'])
+            ->add('totaal', MoneyType::class, ['label' => 'Totaal'])
+            ->add('opmerking', MoneyType::class, ['label' => 'Opmerking'])
+            ->add('Inruillicense', MoneyType::class, ['label' => 'Kenteken inruiler'])
+            ->add('verkochteauto', MoneyType::class, ['label' => 'Verkochte auto'])
             ->add('save', SubmitType::class, ['label' => 'Maak factuur'])
             ->getForm();
 
@@ -104,7 +93,10 @@ class LuckyController extends AbstractController
 
         $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor('Factuur.docx');
 
-        $templateProcessor->setValue('name', $invoice->getName())->setValue('street', $invoice->getStreet());
+        $templateProcessor->setValue('invoicenumber', $invoice->getInvoiceNumber());
+        $templateProcessor->setValue('factuurdatum', $invoice->getInvoicedate());
+        $templateProcessor->setValue('inruilprijs', $invoice->getInruilprijs());
+        $templateProcessor->setValue('name', $invoice->getName());
         $templateProcessor->setValue('street', $invoice->getStreet());
         $templateProcessor->setValue('number', $invoice->getStreetNumber());
         $templateProcessor->setValue('city', $invoice->getCity());
@@ -116,11 +108,60 @@ class LuckyController extends AbstractController
         $templateProcessor->setValue('afleveringsbeurt', $invoice->getAfleveringsbeurt());
         $templateProcessor->setValue('Inruil', $invoice->getInruil());
         $templateProcessor->setValue('totaal', $invoice->getTotaal());
+        $templateProcessor->setValue('subtotaal', $invoice->getSubtotaal());
         $templateProcessor->setValue('factuurdatum', $invoice->getInvoicedate());
         $templateProcessor->setValue('opmerking', $invoice->getOpmerking());
+        $templateProcessor->setValue('Inruillicense', $invoice->getInruillicense());
+        $templateProcessor->setValue('verkochteauto', $invoice->getVerkochteauto());
         $templateProcessor->setValue('license', $invoice->getLicense());
 
         $templateProcessor->saveAs('test3.docx');
+
+        $xmlWriter = \PhpOffice\PhpWord\IOFactory::createWriter($templateProcessor , 'PDF');
+        $xmlWriter->save('result.pdf'); 
+        
+        if($this->RemoveStock($invoice)) {
+            echo "<script>alert('De factuur is aangemaakt, en de voorraad is bijgewerkt!');</script>";
+        }
+    }
+
+    public function RemoveStock() {
+
+        $license = 'PK-493-N';
+
+        $column = 'B';
+
+        $omzetexcel = \PhpOffice\PhpSpreadsheet\IOFactory::createReaderForFile("Inkoopprijzen.xlsx")->load("Inkoopprijzen.xlsx");
+
+        $data = $omzetexcel->getActiveSheet();
+
+        $lastRow = $data->getHighestRow();
+
+        for ($row = 1; $row <= $lastRow; $row++) {
+
+            $cell = $data->getCell($column.$row)->GetValue();
+
+            if ($cell == $license)
+                $data->removeRow($row);
+        }
+
+        // $writer = new \PhpOffice\PhpSpreadsheet\Writer\Xlsx($omzetexcel);
+        // $writer->save('Inkoopprijzentest.xlsx');
+
+        //$templateProcessor = new \PhpOffice\PhpWord('Factuur.docx');
+
+        $phpWord = new \PhpOffice\PhpWord\PhpWord();
+        \PhpOffice\PhpWord\Settings::setPdfRendererPath('vendor/dompdf/dompdf');
+        \PhpOffice\PhpWord\Settings::setPdfRendererName('DomPDF');
+        
+        $document = $phpWord->loadTemplate('Factuur.docx');
+        $document->saveAs('Factuur.docx');
+        $phpWord = \PhpOffice\PhpWord\IOFactory::load('Factuur.docx');
+        $xmlWriter = \PhpOffice\PhpWord\IOFactory::createWriter($phpWord,'PDF');
+        $xmlWriter->save('Factuur.docx');  // Save to PDF
+        unlink($temDoc);
+
+        return true;
     }
 
 }

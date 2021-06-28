@@ -1,0 +1,239 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito+Sans&display=swap");
+body {
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+body .main {
+  background-color: #1c1c1c;
+  opacity: 0.95;
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+}
+
+body .main .content {
+  margin-left: 300px;
+}
+
+body .main .content .voorraad {
+  background-color: #212529;
+  border-radius: 1rem;
+  width: 90%;
+  height: 780px;
+  color: #ffffff;
+  margin: auto;
+  margin-top: 75px;
+}
+
+body .main .content .voorraad .bmw1 {
+  background-color: #1c1c1c;
+  border-radius: 1rem;
+}
+
+body .main .content .voorraad .audi1, body .main .content .voorraad .audi2, body .main .content .voorraad .bmw1 {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 95%;
+  padding: 2rem;
+  margin: auto;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  display: flex;
+}
+
+body .main .content .voorraad .audi1 .info, body .main .content .voorraad .audi2 .info, body .main .content .voorraad .bmw1 .info {
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+body .main .content .voorraad .audi1 .info .properties, body .main .content .voorraad .audi2 .info .properties, body .main .content .voorraad .bmw1 .info .properties {
+  margin-top: 5rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+body .main .content .voorraad .audi1 .info .properties p, body .main .content .voorraad .audi2 .info .properties p, body .main .content .voorraad .bmw1 .info .properties p {
+  opacity: 0.5;
+  font-size: 1.125rem;
+}
+
+body .main .content .voorraad .audi1 img, body .main .content .voorraad .audi2 img, body .main .content .voorraad .bmw1 img {
+  width: 20%;
+  border-radius: 1rem;
+}
+
+body .main .content .voorraad .audi1 button, body .main .content .voorraad .audi2 button, body .main .content .voorraad .bmw1 button {
+  border: 2px solid #4e8e47;
+  border-radius: 1rem;
+  height: 4.5rem;
+  width: 15%;
+  padding: 2px 20px 2px 20px;
+  background-color: transparent;
+  margin-top: 3rem;
+  margin-bottom: 3rem;
+  color: #ffffff;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+body .main .content .voorraad .audi1 button:hover, body .main .content .voorraad .audi2 button:hover, body .main .content .voorraad .bmw1 button:hover {
+  background-color: #4e8e47;
+  font-weight: bold;
+}
+
+body .main .form-control {
+  background-color: #212529;
+  color: white;
+}
+
+body .main .form-control.focused {
+  background-color: #212529;
+}
+
+body .main .overview-area {
+  width: 90%;
+  height: 300px;
+  background-color: #4e8e47;
+  border-radius: 1rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  color: #ffffff;
+  margin: auto;
+  margin-top: 50px;
+}
+
+body .main .overview-area .stock, body .main .overview-area .detail, body .main .overview-area .review {
+  margin-top: auto;
+  margin-bottom: auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+body .main .overview-area .stock h1, body .main .overview-area .detail h1, body .main .overview-area .review h1 {
+  margin-left: auto;
+  margin-right: auto;
+  opacity: 0.5;
+  font-size: 80px;
+}
+
+body .main .header-todo {
+  color: #ffffff;
+  padding: 3rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+body .main .header-todo h2 {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+body .main .todo-list {
+  width: 90%;
+  height: 300px;
+  background-color: #212529;
+  border-radius: 1rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  color: #ffffff;
+  margin: auto;
+}
+
+body .main .todo-list .morning, body .main .todo-list .lunchtime, body .main .todo-list .customer {
+  margin-top: auto;
+  margin-bottom: auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  padding: 4rem;
+  background-color: #1c1c1c;
+  border-radius: 1rem;
+}
+
+body .main .todo-list .morning p, body .main .todo-list .lunchtime p, body .main .todo-list .customer p {
+  margin-left: auto;
+  margin-right: auto;
+  opacity: 0.5;
+  font-size: 20px;
+}
+
+.sidenav {
+  height: 100%;
+  width: 300px;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: #212529;
+  overflow-x: hidden;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.sidenav .logo {
+  width: 100%;
+  padding: 2.5rem;
+}
+
+.sidenav .menu a {
+  padding: 1.25rem 1.25rem 1.25rem 3.125rem;
+  text-decoration: none;
+  font-size: 1rem;
+  color: #818181;
+  display: block;
+  font-family: 'Nunito sans', sans-serif;
+}
+
+.sidenav .menu a:hover {
+  color: #f1f1f1;
+  background-color: #1c1c1c;
+}
+
+.sidenav .profile {
+  color: #ffffff;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 1.25rem 1.25rem 1.25rem 3.125rem;
+  margin-top: auto;
+}
+
+.sidenav .profile .photo .profilepicture {
+  border-radius: 100%;
+  width: 3rem;
+}
+
+.sidenav .profile .info {
+  padding-left: 1.25rem;
+  line-height: 1rem;
+  font-weight: lighter;
+  letter-spacing: 0.02rem;
+}
+/*# sourceMappingURL=app.css.map */
