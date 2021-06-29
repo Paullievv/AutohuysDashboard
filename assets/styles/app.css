@@ -1,7 +1,37 @@
 @import url("https://fonts.googleapis.com/css2?family=Nunito+Sans&display=swap");
+.login-body {
+  background: #1c1c1c;
+  color: #ffffff;
+}
+
+.login-body .login-form {
+  display: -ms-grid;
+  display: grid;
+  width: 500px;
+  margin: auto;
+  padding-top: 15%;
+}
+
+.login-body .login-form input:focus {
+  border-color: #4e8e47;
+  -webkit-box-shadow: 0.25rem #4e8e47;
+          box-shadow: 0.25rem #4e8e47;
+}
+
+.login-body .login-form button {
+  margin-top: 25px;
+  background-color: #4e8e47;
+  border-color: #4e8e47;
+}
+
+.login-body .login-form img {
+  margin: auto;
+}
+
 body {
   background-size: cover;
   background-repeat: no-repeat;
+  background-image: url(/public/images/background2.jpg);
 }
 
 body .main {

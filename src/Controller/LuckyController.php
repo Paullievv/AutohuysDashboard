@@ -25,7 +25,7 @@ class LuckyController extends AbstractController
 {
     
     /**
-        * @Route("home", name="home_page")
+        * @Route("/home", name="home_page")
     */
     public function dashboard(Request $request) : Response
     {
@@ -150,16 +150,16 @@ class LuckyController extends AbstractController
 
         //$templateProcessor = new \PhpOffice\PhpWord('Factuur.docx');
 
-        $phpWord = new \PhpOffice\PhpWord\PhpWord();
-        \PhpOffice\PhpWord\Settings::setPdfRendererPath('vendor/dompdf/dompdf');
-        \PhpOffice\PhpWord\Settings::setPdfRendererName('DomPDF');
+        // $phpWord = new \PhpOffice\PhpWord\PhpWord();
+        // \PhpOffice\PhpWord\Settings::setPdfRendererPath('vendor/dompdf/dompdf');
+        // \PhpOffice\PhpWord\Settings::setPdfRendererName('DomPDF');
         
-        $document = $phpWord->loadTemplate('Factuur.docx');
-        $document->saveAs('Factuur.docx');
-        $phpWord = \PhpOffice\PhpWord\IOFactory::load('Factuur.docx');
-        $xmlWriter = \PhpOffice\PhpWord\IOFactory::createWriter($phpWord,'PDF');
-        $xmlWriter->save('Factuur.docx');  // Save to PDF
-        unlink($temDoc);
+        // $document = $phpWord->loadTemplate('Factuur.docx');
+        // $document->saveAs('Factuur.docx');
+        // $phpWord = \PhpOffice\PhpWord\IOFactory::load('Factuur.docx');
+        // $xmlWriter = \PhpOffice\PhpWord\IOFactory::createWriter($phpWord,'PDF');
+        // $xmlWriter->save('Factuur.docx');  // Save to PDF
+        // unlink($temDoc);
 
         return true;
     }

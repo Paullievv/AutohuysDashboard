@@ -5,10 +5,37 @@ $light-dark: #212529;
 $dark: #1c1c1c;
 $white: #ffffff;
 
+.login-body {
+    background: $dark;
+    color: $white;
+
+  .login-form {
+    display: grid;
+    width: 500px;
+    margin: auto;
+    padding-top: 15%;
+
+    input:focus {
+      border-color: $green;
+      box-shadow: 0.25rem $green;
+    }
+
+    button {
+      margin-top: 25px;
+      background-color: $green;
+      border-color: $green;
+    }
+
+    img {
+      margin: auto;
+    }
+  }
+} 
+
 body {
-  //background-image: url(/images/background2.jpg);
   background-size: cover;
   background-repeat: no-repeat;
+  background-image: url(/public/images/background2.jpg);
 
   .main {
     background-color: $dark;
