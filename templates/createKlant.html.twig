@@ -41,37 +41,37 @@
 
 						<div class="row">
 							<div class="col">
-								{{ form_row(form.invoicenumber) }}
+								{{ form_row(form.Naam) }}
 							</div>
-							<div class="col">
-								{{ form_row(form.invoicedate, { value : "now"|date("m/d/Y")}) }}
-							</div>
-							<div class="col">
-								{{ form_row(form.Klant) }}
+							<div class="col" id="some-custom-id">
+								{{ form_row(form.Telefoonnummer) }}
 							</div>
 						</div>
 
 						<div class="row">
 							<div class="col">
-								{{ form_row(form.license) }}
+								{{ form_row(form.Straat) }}
 							</div>
 							<div class="col" id="some-custom-id">
-								{{ form_row(form.meldcode) }}
-							</div>
-							<div class="col" id="some-custom-id">
-								{{ form_row(form.Garantie) }}
+								{{ form_row(form.Huisnummer) }}
 							</div>
 						</div>
 
 						<div class="row">
 							<div class="col">
-								{{ form_row(form.Inruilprijs) }}
+								{{ form_row(form.Woonplaats) }}
 							</div>
 							<div class="col" id="some-custom-id">
-								{{ form_row(form.subtotaal) }}
+								{{ form_row(form.Postcode) }}
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col">
+								{{ form_row(form.Email) }}
 							</div>
 							<div class="col" id="some-custom-id">
-								{{ form_row(form.totaal) }}
+								{{ form_row(form.Save) }}
 							</div>
 						</div>
 

@@ -11,6 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use PhpOffice\PhpWord\PhpWord;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
@@ -19,6 +20,7 @@ use PhpOffice\PhpWord\IOFactory;
 use PhpOffice\PhpWord\Settings;
 
 use App\Entity\Invoice;
+use App\Entity\Klant;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 
 class LuckyController extends AbstractController
@@ -41,6 +43,37 @@ class LuckyController extends AbstractController
     }
 
     /**
+        * @Route("/maak-klant", name="createklant")
+    */
+    public function SubmitKlant(Request $request) : Response
+    {
+        $form = $this->createFormBuilder(new Klant())
+            ->add('Naam', TextType::class, ['label' => 'Naam'])
+            ->add('Straat', TextType::class, ['label' => 'Straat'])
+            ->add('Huisnummer', TextType::class, ['label' => 'Huisnummer'])
+            ->add('Woonplaats', TextType::class, ['label' => 'Plaats'])
+            ->add('Postcode', TextType::class, ['label' => 'Postcode'])
+            ->add('Telefoonnummer', TextType::class, ['label' => 'Telefoon nummer'])
+            ->add('Email', TextType::class, ['label' => 'E-mail'])
+            ->add('Save', SubmitType::class, ['label' => 'Maak klant'])
+            ->getForm();
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $data = $form->getData();
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($data);
+            $entityManager->flush();
+        }
+
+        return $this->render('createKlant.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
+
+    /**
         * @Route("/maak-factuur")
     */
     public function SubmitInvoice(Request $request) : Response
@@ -48,15 +81,12 @@ class LuckyController extends AbstractController
         $invoice = new Invoice();
 
         $form = $this->createFormBuilder($invoice)
+            ->add('Klant', EntityType::class,
+
+            ['choice_label' => 'Naam',
+            'class' => Klant::class])
             ->add('invoicenumber', NumberType::class, ['label' => 'Factuur nummer'])
             ->add('invoicedate', DateType::class, ['label' => 'Factuur datum'])
-            ->add('name', TextType::class, ['label' => 'Naam'])
-            ->add('street', TextType::class, ['label' => 'Straat'])
-            ->add('streetnumber', NumberType::class, ['label' => 'Huisnummer'])
-            ->add('city', TextType::class, ['label' => 'Plaats'])
-            ->add('postcode', TextType::class, ['label' => 'Postcode'])
-            ->add('telefoonnummer', NumberType::class, ['label' => 'Telefoon nummer'])
-            ->add('email', TextType::class, ['label' => 'E-mail'])
             ->add('license', TextType::class, ['label' => 'Kenteken'])
             ->add('meldcode', NumberType::class, ['label' => 'Meldcode'])
             ->add('Garantie', TextType::class, ['label' => 'Garantie'])
@@ -65,9 +95,9 @@ class LuckyController extends AbstractController
             ->add('Inruilprijs', MoneyType::class, ['label' => 'Inruilprijs'])
             ->add('subtotaal', MoneyType::class, ['label' => 'Sub-totaal'])
             ->add('totaal', MoneyType::class, ['label' => 'Totaal'])
-            ->add('opmerking', MoneyType::class, ['label' => 'Opmerking'])
-            ->add('Inruillicense', MoneyType::class, ['label' => 'Kenteken inruiler'])
-            ->add('verkochteauto', MoneyType::class, ['label' => 'Verkochte auto'])
+            ->add('opmerking', TextType::class, ['label' => 'Opmerking'])
+            ->add('Inruillicense', TextType::class, ['label' => 'Kenteken inruiler'])
+            ->add('verkochteauto', TextType::class, ['label' => 'Verkochte auto'])
             ->add('save', SubmitType::class, ['label' => 'Maak factuur'])
             ->getForm();
 

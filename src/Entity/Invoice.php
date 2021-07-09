@@ -10,6 +10,12 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Invoice
 {
+
+    public function __construct()
+    {
+        $this->invoicedate = new \DateTime();
+    }
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -21,41 +27,6 @@ class Invoice
      * @ORM\Column(type="integer")
      */
     private $invoicenumber;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $Name;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $street;
-
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $streetnumber;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $city;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $postcode;
-
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $telefoonnummer;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $email;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -116,6 +87,12 @@ class Invoice
      * @ORM\Column(type="date")
      */
     private $invoicedate;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Klant::class, inversedBy="invoices")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $Klant;
 
     public function getId(): ?int
     {
@@ -358,6 +335,18 @@ class Invoice
     public function setInvoicedate(\DateTimeInterface $invoicedate): self
     {
         $this->invoicedate = $invoicedate;
+
+        return $this;
+    }
+
+    public function getKlant(): ?Klant
+    {
+        return $this->Klant;
+    }
+
+    public function setKlant(?Klant $Klant): self
+    {
+        $this->Klant = $Klant;
 
         return $this;
     }
