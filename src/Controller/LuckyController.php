@@ -11,6 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use PhpOffice\PhpWord\PhpWord;
@@ -73,6 +74,20 @@ class LuckyController extends AbstractController
         ]);
     }
 
+        /**
+        * @Route("/overzicht-facturen")
+    */
+    public function AllInvoices(Request $request) : Response
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+
+        $invoices = $entityManager->getRepository(Invoice::class)->findall();
+
+        return $this->render('overzichtFacturen.html.twig', [
+            'invoices' => $invoices,
+        ]);
+    }
+
     /**
         * @Route("/maak-factuur")
     */
@@ -88,7 +103,10 @@ class LuckyController extends AbstractController
             ->add('invoicenumber', NumberType::class, ['label' => 'Factuur nummer'])
             ->add('invoicedate', DateType::class, ['label' => 'Factuur datum'])
             ->add('license', TextType::class, ['label' => 'Kenteken'])
+            ->add('Prijs', MoneyType::class, ['label' => 'Prijs'])
+            ->add('margebtw', ChoiceType::class, [ 'choices'  => [ 'Marge' => true, 'BTW' => false ] ], ['label' => 'Marge / BTW'])
             ->add('meldcode', NumberType::class, ['label' => 'Meldcode'])
+            ->add('Kilometerstand', NumberType::class, ['label' => 'Kilometerstand'])
             ->add('Garantie', TextType::class, ['label' => 'Garantie'])
             ->add('Afleveringsbeurt', TextType::class, ['label' => 'Afleveringsbeurt'])
             ->add('Inruil', TextType::class, ['label' => 'Inruil'])
@@ -110,6 +128,8 @@ class LuckyController extends AbstractController
             $entityManager->persist($data);
             $entityManager->flush();
 
+            //dd($data);
+
             $this->GenerateInvoice($data);
         }
 
@@ -123,36 +143,43 @@ class LuckyController extends AbstractController
 
         $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor('Factuur.docx');
 
+        //d($invoice);
+
         $templateProcessor->setValue('invoicenumber', $invoice->getInvoiceNumber());
-        $templateProcessor->setValue('factuurdatum', $invoice->getInvoicedate());
-        $templateProcessor->setValue('inruilprijs', $invoice->getInruilprijs());
-        $templateProcessor->setValue('name', $invoice->getName());
-        $templateProcessor->setValue('street', $invoice->getStreet());
-        $templateProcessor->setValue('number', $invoice->getStreetNumber());
-        $templateProcessor->setValue('city', $invoice->getCity());
-        $templateProcessor->setValue('postcode', $invoice->getPostcode());
-        $templateProcessor->setValue('telefoonnummer', $invoice->getTelefoonnummer());
-        $templateProcessor->setValue('email', $invoice->getEmail());
+        $templateProcessor->setValue('factuurdatum', $invoice->getInvoicedate()->format('Y-m-d'));
+        $templateProcessor->setValue('Inruilprijs', $invoice->getInruilprijs());
+        $templateProcessor->setValue('name', $invoice->getKlant()->getNaam());
+        $templateProcessor->setValue('street', $invoice->getKlant()->getStraat());
+        $templateProcessor->setValue('number', $invoice->getKlant()->getHuisnummer());
+        $templateProcessor->setValue('city', $invoice->getKlant()->getWoonplaats());
+        $templateProcessor->setValue('postcode', $invoice->getKlant()->getPostcode());
+        $templateProcessor->setValue('telefoonnummer', $invoice->getKlant()->getTelefoonnummer());
+        $templateProcessor->setValue('email', $invoice->getKlant()->getEmail());
         $templateProcessor->setValue('meldcode', $invoice->getMeldcode());
+        $templateProcessor->setValue('kilometerstand', $invoice->getKilometerstand());
         $templateProcessor->setValue('garantie', $invoice->getGarantie());
+        $templateProcessor->setValue('prijs', $invoice->getPrijs());
+        $templateProcessor->setValue('margebtw', $invoice->getMargeBtw());
         $templateProcessor->setValue('afleveringsbeurt', $invoice->getAfleveringsbeurt());
         $templateProcessor->setValue('Inruil', $invoice->getInruil());
         $templateProcessor->setValue('totaal', $invoice->getTotaal());
         $templateProcessor->setValue('subtotaal', $invoice->getSubtotaal());
-        $templateProcessor->setValue('factuurdatum', $invoice->getInvoicedate());
         $templateProcessor->setValue('opmerking', $invoice->getOpmerking());
         $templateProcessor->setValue('Inruillicense', $invoice->getInruillicense());
         $templateProcessor->setValue('verkochteauto', $invoice->getVerkochteauto());
         $templateProcessor->setValue('license', $invoice->getLicense());
+        $templateProcessor->setValue('margebtw', $invoice->getMargeBtw());
+        $templateProcessor->setValue('license', $invoice->getLicense());
+
 
         $templateProcessor->saveAs('test3.docx');
 
-        $xmlWriter = \PhpOffice\PhpWord\IOFactory::createWriter($templateProcessor , 'PDF');
-        $xmlWriter->save('result.pdf'); 
+        // $xmlWriter = \PhpOffice\PhpWord\IOFactory::createWriter($templateProcessor , 'PDF');
+        // $xmlWriter->save('result.pdf'); 
         
-        if($this->RemoveStock($invoice)) {
-            echo "<script>alert('De factuur is aangemaakt, en de voorraad is bijgewerkt!');</script>";
-        }
+        // if($this->RemoveStock($invoice)) {
+        //     echo "<script>alert('De factuur is aangemaakt, en de voorraad is bijgewerkt!');</script>";
+        // }
     }
 
     public function RemoveStock() {

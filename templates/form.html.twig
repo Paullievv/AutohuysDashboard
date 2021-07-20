@@ -17,6 +17,7 @@
 					<div class="menu">
 						<a href="/home">Overzicht</a>
 						<a href="/maak-factuur">Factuur maken</a>
+						<a href="/overzicht-facturen">Facturen overzicht</a>
 						<a href="/maak-klant">Klant toevoegen</a>
 					</div>
 
@@ -54,6 +55,15 @@
 						<div class="row">
 							<div class="col">
 								{{ form_row(form.license) }}
+							</div>
+							<div class="col">
+								{{ form_row(form.Kilometerstand) }}
+							</div>
+							<div class="col">
+								{{ form_row(form.margebtw) }}
+							</div>
+							<div class="col">
+								{{ form_row(form.Prijs) }}
 							</div>
 							<div class="col" id="some-custom-id">
 								{{ form_row(form.meldcode) }}

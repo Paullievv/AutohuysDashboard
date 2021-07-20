@@ -8,6 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity(repositoryClass=InvoiceRepository::class)
  */
+
 class Invoice
 {
 
@@ -46,12 +47,27 @@ class Invoice
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
+    private $MargeBtw;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
     private $Afleveringsbeurt;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $Inruil;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $Prijs;
+
+        /**
+     * @ORM\Column(type="integer")
+     */
+    private $kilometerstand;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -111,90 +127,6 @@ class Invoice
         return $this;
     }
 
-    public function getName(): ?string
-    {
-        return $this->Name;
-    }
-
-    public function setName(string $Name): self
-    {
-        $this->Name = $Name;
-
-        return $this;
-    }
-
-    public function getStreet(): ?string
-    {
-        return $this->street;
-    }
-
-    public function setStreet(string $street): self
-    {
-        $this->street = $street;
-
-        return $this;
-    }
-
-    public function getStreetNumber(): ?int
-    {
-        return $this->streetnumber;
-    }
-
-    public function setStreetNumber(int $streetnumber): self
-    {
-        $this->streetnumber = $streetnumber;
-
-        return $this;
-    }
-
-    public function getCity(): ?string
-    {
-        return $this->city;
-    }
-
-    public function setCity(string $city): self
-    {
-        $this->city = $city;
-
-        return $this;
-    }
-
-    public function getPostCode(): ?string
-    {
-        return $this->postcode;
-    }
-
-    public function setPostCode(string $postcode): self
-    {
-        $this->postcode = $postcode;
-
-        return $this;
-    }
-
-    public function getTelefoonnummer(): ?int
-    {
-        return $this->telefoonnummer;
-    }
-
-    public function setTelefoonnummer(int $telefoonnummer): self
-    {
-        $this->telefoonnummer = $telefoonnummer;
-
-        return $this;
-    }
-
-    public function getEmail(): ?string
-    {
-        return $this->email;
-    }
-
-    public function setEmail(string $email): self
-    {
-        $this->email = $email;
-
-        return $this;
-    }
-
     public function getLicense(): ?string
     {
         return $this->license;
@@ -219,6 +151,18 @@ class Invoice
         return $this;
     }
 
+    public function getKilometerstand(): ?int
+    {
+        return $this->kilometerstand;
+    }
+
+    public function setKilometerstand(int $kilometerstand): self
+    {
+        $this->kilometerstand = $kilometerstand;
+
+        return $this;
+    }
+
     public function getGarantie(): ?string
     {
         return $this->Garantie;
@@ -227,6 +171,18 @@ class Invoice
     public function setGarantie(?string $Garantie): self
     {
         $this->Garantie = $Garantie;
+
+        return $this;
+    }
+
+    public function getMargeBtw(): ?string
+    {
+        return $this->MargeBtw;
+    }
+
+    public function setMargeBtw(?string $MargeBtw): self
+    {
+        $this->MargeBtw = $MargeBtw;
 
         return $this;
     }
@@ -251,6 +207,18 @@ class Invoice
     public function setInruil(?string $Inruil): self
     {
         $this->Inruil = $Inruil;
+
+        return $this;
+    }
+
+    public function getPrijs(): ?string
+    {
+        return $this->Prijs;
+    }
+
+    public function setPrijs(?string $Prijs): self
+    {
+        $this->Prijs = $Prijs;
 
         return $this;
     }
